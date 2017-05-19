@@ -14,6 +14,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipSelection: UISegmentedControl!
+   
+    @IBOutlet var serviceButtons: [UIButton]! {
+        didSet {
+            serviceButtons.forEach {
+                $0.layer.cornerRadius = 5
+            }
+        }
+        
+    }
+    
+    var tipPercentages = [0.10, 0.15, 0.2]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +44,32 @@ class ViewController: UIViewController {
         CalculateTip(Any.self)
     }
     
-    @IBAction func CalculateTip(_ sender: Any) {
-        let tipPercentages = [0.10, 0.15, 0.2]
+    @IBAction func dinningServiceSelected(_ sender: Any) {
         
+        tipPercentages = [0.10, 0.18, 0.25]
+        CalculateTip(Any.self)
+    }
+    
+    @IBAction func transportationServiceSelected(_ sender: Any) {
+        tipPercentages = [0.10, 0.12, 0.15]
+        CalculateTip(Any.self)
+
+    }
+    
+    @IBAction func groomingServiceSelected(_ sender: Any) {
+        tipPercentages = [0, 0.15, 0.2]
+        CalculateTip(Any.self)
+
+    }
+    
+    @IBAction func beautyServiceSelected(_ sender: Any) {
+        tipPercentages = [0.10, 0.15, 0.2]
+        CalculateTip(Any.self)
+
+    }
+    
+    @IBAction func CalculateTip(_ sender: Any) {
+
         let bill = Double(billField.text!) ?? 0
         let tip = bill * tipPercentages[tipSelection.selectedSegmentIndex]
         let total = bill + tip
